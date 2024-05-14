@@ -1,5 +1,4 @@
 <ruleset name="coding-style">
-    <config name="installed_paths" value="vendor/wp-coding-standards/wpcs" />
     <description>Coding style description</description>
 
     <file>.</file>
@@ -17,6 +16,7 @@
     <rule ref="WordPress-Extra">
         <!-- Exclude any rules here -->
         <exclude name="WordPress.PHP.DisallowShortTernary"/>
+        <exclude name="WordPress.Files.FileName" />
     </rule>
 
     <!-- Let's also check that everything is properly documented. -->
