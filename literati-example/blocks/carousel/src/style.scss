@@ -53,7 +53,7 @@
 
 		&:not(.swiper-slide-active) {
 			transform: scale(0.8);
-			opacity: 0.8;
+			opacity: 0.5;
 		}
 
 		&__img {
@@ -88,8 +88,7 @@
 		&__heading {
 			margin: 0;
 			color: $clr-light-blue;
-			font-weight: 700;
-			@include typography(24px, 26px, 40px, 48px);
+			@include typography(24px, 26px, 40px, 48px, 700);
 		}
 
 		&__text {
@@ -133,24 +132,24 @@
 			}
 		}
 	}
-}
 
-.btn {
-	margin-top: 20px;
-	padding: 15px 30px;
-	display: inline-block;
-	background-color: $clr-light-blue;
-	border: 1px solid $clr-light-blue;
-	color: $clr-white;
-	font-size: 16px;
-	font-weight: 700;
-	line-height: 16px;
-	text-transform: uppercase;
-	text-decoration: none;
-	transition: all .3s ease-in-out;
-
-	&:hover {
-		background-color: $clr-white;
-		color: $clr-light-blue;
+	.btn {
+		margin-top: 20px;
+		padding: 15px 30px;
+		display: inline-block;
+		background-color: $clr-light-blue;
+		border: 1px solid $clr-light-blue;
+		color: $clr-white;
+		font-size: 16px;
+		font-weight: 700;
+		line-height: 16px;
+		text-transform: uppercase;
+		text-decoration: none;
+		transition: all .3s ease-in-out;
+	
+		&:hover {
+			background-color: $clr-white;
+			color: $clr-light-blue;
+		}
 	}
 }

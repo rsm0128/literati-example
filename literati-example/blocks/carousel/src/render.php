@@ -1,44 +1,55 @@
 <?php
 /**
+ * Carousel block dynamic render markup.
+ *
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
+ *
+ * @package Literati\Example
  */
 
 $swiper_attr = array(
 	'autoplay' => array(
 		'delay' => $attributes['autoplaySpeed'],
-	)
+	),
 );
 $swiper_attr = htmlspecialchars( wp_json_encode( $swiper_attr ) );
 
+$promotion_query = new WP_Query(
+	array(
+		'post_type'      => 'promotion',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+	)
+);
+
 $slides = $attributes['slides'];
 ?>
-<div <?php echo get_block_wrapper_attributes(); ?> >
+<div <?php echo get_block_wrapper_attributes(); // phpcs:ignore ?> >
 	<div class="carousel-items swiper" data-swiper="<?php echo esc_attr( $swiper_attr ); ?>">
 		<div class="swiper-wrapper carousel-items__wrapper">
-			<?php for ( $i = 0; $i < 2; $i++ ) : ?>
-				<?php foreach ( $slides as $item ) : ?>
+			<?php
+			if ( $promotion_query->have_posts() ) :
+				while ( $promotion_query->have_posts() ) :
+					$promotion_query->the_post();
+					$promotion_id = get_the_ID();
+					?>
 					<div class="carousel-item swiper-slide">
-						<?php if ( $item['image']['url'] ) : ?>
+						<?php if ( has_post_thumbnail() ) : ?>
 							<div class="carousel-item__img">
-								<img src="<?php echo esc_url( $item['image']['url'] ); ?>" alt="<?php echo esc_attr( $item['image']['alt'] ); ?>">
+								<?php the_post_thumbnail( 'full' ); ?>
 							</div>
 						<?php endif; ?>
 						<div class="carousel-item__content">
-							<?php if ( $item['heading'] ) : ?>
-								<h3 class="carousel-item__heading"><?php echo esc_html($item['heading']); ?></h3>
-							<?php endif; ?>
-
-							<?php if ( $item['content'] ) : ?>
-								<p class="carousel-item__text"><?php echo esc_html($item['content']); ?></p>
-							<?php endif; ?>
-
-							<?php if ( $item['link']['url'] ) : ?>
-								<a href="<?php echo esc_attr($item['link']['url']); ?>" class="btn btn--read-more carousel-item__link"><?php echo esc_html($item['link']['text']); ?></a>
-							<?php endif; ?>
+							<h3 class="carousel-item__heading"><?php the_title(); ?></h3>
+							<p class="carousel-item__text"><?php echo esc_html( get_post_meta( $promotion_id, '_promotion_text', true ) ); ?></p>
+							<a href="<?php the_permalink(); ?>" class="btn btn--read-more carousel-item__link"><?php echo esc_html( get_post_meta( $promotion_id, '_promotion_button', true ) ); ?></a>
 						</div>
 					</div>
-				<?php endforeach; ?>
-			<?php endfor; ?>
+					<?php
+				endwhile;
+			endif;
+			wp_reset_postdata();
+			?>
 		</div>
 		<div class="swiper-navigation">
 			<div class="swiper-button-prev">

@@ -9,51 +9,12 @@
 	"description": "Example carousel block",
 	"example": {},
 	"supports": {
-		"html": false,
-		"allowedBlocks": [ "literati-example/carousel-inner" ]
+		"html": false
 	},
 	"attributes": {
 		"autoplaySpeed": {
 			"type": "number",
 			"default": 3000
-		},
-		"slides":{
-			"type": "array",
-			"default": [],
-			"properties": {
-				"image": {
-					"type": "object",
-					"properties": {
-						"url": {
-							"type": "string",
-							"default": ""
-						},
-						"alt": {
-							"type": "string",
-							"default": ""
-						}
-					}
-				},
-				"heading": {
-					"type": "string"
-				},
-				"content": {
-					"type": "string"
-				},
-				"link": {
-					"type": "object",
-					"properties": {
-						"text": {
-							"type": "string",
-							"default": ""
-						},
-						"url": {
-							"type": "string",
-							"default": ""
-						}
-					}
-				}
-			}
 		}
 	},
 	"textdomain": "literati-example-carousel",

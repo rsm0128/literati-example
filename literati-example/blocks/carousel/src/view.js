@@ -20,7 +20,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 import { Swiper } from 'swiper';
-import { Autoplay, Navigation, Manipulation } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 
 document.addEventListener( 'DOMContentLoaded', () => {
 
@@ -32,17 +32,34 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	}
 
 	// Loop through all sliders and assign Swiper object.
-	containers.forEach( ( element ) => {
+	containers.forEach( ( slider ) => {
 		// We could pass in some unique options here.
 		let options = {};
         
 		try {
-            options = JSON.parse( element.dataset.swiper );
+            options = JSON.parse( slider.dataset.swiper );
 		} catch ( e ) {
 			// eslint-disable-next-line no-console
 			console.error( e );
 			return;
 		}
+
+        const slideWrapper = slider.querySelector('.swiper-wrapper');
+        const slideItems = slider.querySelectorAll('.carousel-item');
+        
+        // If slide counts is smaller than 2, set slidesPerView 1.
+        let slidesPerView = 2;
+        if ( slideItems.length < 2 ) {
+            slidesPerView = 1;
+        }
+
+        // Fix slide count is smaller than double of slidesPerView.
+        if ( slidesPerView * 2 > slideItems.length ) {
+            slideItems.forEach(item => {
+                const clonedItem = item.cloneNode(true);
+                slideWrapper.appendChild(clonedItem)
+            })
+        }
 
 		// Slider
 		new Swiper( '.carousel-items', {
@@ -53,7 +70,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
             centeredSlides: true,
             grabCursor: true,
             loop: true,
-            modules: [ Autoplay, Navigation, Manipulation ],
+            modules: [ Autoplay, Navigation ],
             navigation: {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev"
@@ -61,21 +78,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
             slidesPerView: 1,
             breakpoints: {
                 768: {
-                    slidesPerView: 2,
+                    slidesPerView,
                 }
             }
         });
 	} );
-
-    const wrapper = document.querySelectorAll( '.wp-block-literati-example-carousel' );
-    // Return early, and often.
-	if ( ! wrapper.length ) {
-		return;
-	}
-
-    wrapper.forEach( ( element ) => {
-        const parentElement = element.parentElement;
-        parentElement.style.padding = '0px';
-	} );
-
 } );
