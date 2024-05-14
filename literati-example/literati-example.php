@@ -6,8 +6,9 @@
  * Version: 1.0.0
  * Author: Literati
  * Author URI: https://literati.com/
- *
  * Text Domain: literati-example
+ *
+ * @package Literati\Example
  */
 
 use Literati\Example\Plugin;
