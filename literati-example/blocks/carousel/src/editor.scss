@@ -5,5 +5,27 @@
  */
 
 .wp-block-literati-example-carousel {
-	border: 1px dotted #f00;
+	.carousel-items {
+		.carousel-item {
+			opacity: 1;
+	
+			&__img {
+				width: 315px;
+			}
+
+			&__content {
+				padding: 10px;
+			}
+	
+			&__link-box {
+				input {
+					width: 100%;
+				}
+			}
+	
+			.btn {
+				display: inline-flex;
+			}
+		}
+	}
 }

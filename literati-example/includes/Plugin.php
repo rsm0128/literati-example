@@ -1,5 +1,4 @@
 <?php
-
 namespace Literati\Example;
 
 use Literati\Example\Blocks;

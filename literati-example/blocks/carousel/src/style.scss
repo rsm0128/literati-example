@@ -4,9 +4,153 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
+ @import "swiper/css";
+ @import "swiper/css/a11y";
+ @import "swiper/css/autoplay";
+ @import "swiper/css/navigation";
+ @import "swiper/css/pagination";
+ @import "./abstacts/abstacts.scss";
 
 .wp-block-literati-example-carousel {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+	position: relative;
+	overflow: hidden;
+	box-sizing: border-box;
+
+	body .wp-site-blocks .wp-block-group & {
+		max-width: 100%;
+	}
+
+	.carousel-item {
+		&s {
+			position: relative;
+			overflow: visible;
+			padding: 30px 0 80px;
+
+			@include mq(tablet, max) {
+				padding: 30px 30px 80px;
+			}
+
+			&::before {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 50%;
+				left: 50%;
+				background-color: $clr-bg;
+				transform: translate(-50%, -50%);
+			}
+		}
+		
+		border-radius: 10px;
+		overflow: hidden;
+		filter: drop-shadow(0px 0px 15px rgba(103, 147, 146, 0.25));
+		transition: all 0.3s ease-in-out;
+		@include mq(desktop-small) {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		&:not(.swiper-slide-active) {
+			transform: scale(0.8);
+			opacity: 0.8;
+		}
+
+		&__img {
+			height: svw(441px);
+			max-height: 331px;
+			
+			@include mq(desktop-small) {
+				max-width: 315px;
+				max-height: 441px;
+				flex-shrink: 0;
+			}
+		}
+
+		&__content {
+			width: 100%;
+			padding: 20px;
+			background-color: $clr-white;
+			box-sizing: border-box;
+			
+			@include mq(desktop-small) {
+				width: svw(413px);
+				height: svw(441px);
+				max-height: 441px;
+				padding: 36px;
+				display: flex;
+				align-items: flex-start;
+				flex-direction: column;
+				justify-content: center;
+			}
+		}
+
+		&__heading {
+			margin: 0;
+			color: $clr-light-blue;
+			font-weight: 700;
+			@include typography(24px, 26px, 40px, 48px);
+		}
+
+		&__text {
+			margin: 20px 0;
+			@include typography(16px, 24px, 18px, 27px);
+		}
+
+		&__link {
+			margin-top: 20px;
+		}
+
+		img {
+			@include cover-image;
+		}
+	}
+
+	.swiper {
+		.swiper-navigation {
+			position: absolute;
+			width: 100%;
+			height: 50px;
+			padding:0 30px;
+			bottom: 0;
+			left: 50%;
+			background-color: $clr-purple;
+			box-sizing: border-box;
+			transform: translateX(-50%);
+		}
+
+		&-button {
+			&-prev,
+			&-next {
+				&::after {
+					display: none;
+				}
+
+				svg {
+					width: 18px;
+					height: 19px;
+				}
+			}
+		}
+	}
+}
+
+.btn {
+	margin-top: 20px;
+	padding: 15px 30px;
+	display: inline-block;
+	background-color: $clr-light-blue;
+	border: 1px solid $clr-light-blue;
+	color: $clr-white;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 16px;
+	text-transform: uppercase;
+	text-decoration: none;
+	transition: all .3s ease-in-out;
+
+	&:hover {
+		background-color: $clr-white;
+		color: $clr-light-blue;
+	}
 }
